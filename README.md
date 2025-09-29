@@ -182,7 +182,7 @@ kubectl get pods -w
 kubectl top pods
 
 # Terminal 4: Verificar métricas detalhadas
-watch -n 2 kubectl top pods   # GitBash
+while true; do clear; kubectl top pods; sleep 2; done  #GitBash
 ```
 
 #### Gerar Carga de CPU:
