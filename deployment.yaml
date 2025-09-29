@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conversor-video-deploy
+  labels:
+    app: conversor-video
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: conversor-video
+  template:
+    metadata:
+      labels:
+        app: conversor-video
+    spec:
+      containers:
+      - name: conversor-video
+        image: simaomorais/conversor-video:1.0
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: "100m"
+          limits:
+            cpu: "200m"
