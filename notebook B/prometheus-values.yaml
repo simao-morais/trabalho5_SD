@@ -1,0 +1,62 @@
+# Arquivo de configuração customizado para Prometheus
+# Salve como: prometheus-values.yaml
+
+# Configurações do Prometheus Server
+prometheus:
+  prometheusSpec:
+    # Intervalo de coleta de métricas
+    scrapeInterval: 15s
+    
+    # Retenção de dados
+    retention: 7d
+    
+    # Recursos
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "250m"
+      limits:
+        memory: "2Gi"
+        cpu: "1000m"
+    
+    # Service Monitors - detecta automaticamente aplicações
+    serviceMonitorSelectorNilUsesHelmValues: false
+    
+    # Pod Monitors
+    podMonitorSelectorNilUsesHelmValues: false
+
+# Configurações do Grafana
+grafana:
+  enabled: true
+  adminPassword: "admin123"  # ALTERE ISSO!
+  
+  # Expor Grafana via NodePort
+  service:
+    type: NodePort
+    nodePort: 30080
+  
+  # Dashboards pré-configurados
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+# Configurações do AlertManager
+alertmanager:
+  enabled: true
+
+# Node Exporter - coleta métricas dos nodes
+prometheus-node-exporter:
+  enabled: true
+
+# Kube State Metrics - métricas do Kubernetes
+kube-state-metrics:
+  enabled: true
