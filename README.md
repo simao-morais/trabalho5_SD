@@ -62,6 +62,8 @@ minikube status
 minikube addons enable metrics-server
 
 # Aguardar metrics-server inicializar (30-60 segundos)
+kubectl get pods -n kube-system | Select-String metrics-server  # powershell
+ou
 kubectl get pods -n kube-system | grep metrics-server
 ```
 
